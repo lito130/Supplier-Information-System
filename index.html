@@ -3,6 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="Permissions-Policy" content="geolocation=(self https://script.google.com)">
   <title>Supplier Information System</title>
   <link rel="icon" type="image/png" href="https://raw.githubusercontent.com/lito130/supplier-directory/main/pngtree-ic-electronic-chip-in-cartoon-style-vector-illustration-png-image_9163673.png">
   <style>
@@ -33,8 +34,8 @@
   <iframe 
     id="appFrame"
     src="https://script.google.com/macros/s/AKfycbwz8mNSjzdAWKTflJ15Oqfd_eR1B6ty0bgX1nqQ4aEXSiDJpH0sjmuY8P0Q8zEb63AH5A/exec" 
-    
     allowfullscreen
+    allow="geolocation; microphone; camera"
     onload="document.getElementById('loader').classList.add('hidden')">
   </iframe>
   <script>
