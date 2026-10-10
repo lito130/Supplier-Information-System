@@ -14,7 +14,7 @@
       overflow: hidden; 
       background: #0a0e1a; 
     }
-
+    /* Fix para sa mobile - gamitin ang fixed position imbes na 100vh */
     iframe { 
       position: fixed;
       top: 0;
@@ -48,7 +48,6 @@
   <iframe 
     id="appFrame"
     src="https://script.google.com/macros/s/AKfycbwN6spi5YNrqqcA3LoFeTFpBsig3oqkLGyJp22nCWTBJQC0a0DnHH7zW34JuaIn_nT2-A/exec" 
-     
     
     allowfullscreen
     allow="geolocation; microphone; camera"
@@ -56,6 +55,32 @@
   </iframe>
   <script>
     setTimeout(function() { document.getElementById('loader').classList.add('hidden'); }, 12000);
+
+    // Taga-ingat ng session at huling page para hindi mawala kapag nag-refresh.
+    // Nakikipag-usap sa app sa loob ng iframe gamit ang postMessage.
+    (function () {
+      var KEYS = ['sd_session', 'sd_page'];
+      var ALLOWED = /^https:\/\/([a-z0-9-]+\.)*(googleusercontent\.com|google\.com)$/;
+
+      window.addEventListener('message', function (e) {
+        if (!ALLOWED.test(e.origin)) return;
+        var d = e.data;
+        if (!d || typeof d.sdType !== 'string') return;
+        try {
+          if (d.sdType === 'get') {
+            e.source.postMessage({
+              sdType: 'state',
+              session: sessionStorage.getItem('sd_session'),
+              page: sessionStorage.getItem('sd_page')
+            }, e.origin);
+          } else if (d.sdType === 'save' && KEYS.indexOf(d.key) > -1 && typeof d.value === 'string') {
+            sessionStorage.setItem(d.key, d.value);
+          } else if (d.sdType === 'clear') {
+            KEYS.forEach(function (k) { sessionStorage.removeItem(k); });
+          }
+        } catch (err) {}
+      });
+    })();
   </script>
 </body>
 </html>
