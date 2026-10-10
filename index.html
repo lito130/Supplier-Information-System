@@ -55,7 +55,7 @@
   <script>
     setTimeout(function() { document.getElementById('loader').classList.add('hidden'); }, 20000);   
 
-    // Keeps the login session across F5 (the Apps Script iframe cannot, its origin changes on each load)
+    
     (function () {
       var KEYS = ['sd_session', 'sd_page'];
       var ALLOWED = /^https:\/\/([a-z0-9-]+\.)*(googleusercontent\.com|google\.com)$/;
