@@ -50,10 +50,10 @@
     
     allowfullscreen
     allow="geolocation"
-    onload="document.getElementById('loader').classList.add('hidden')">
+    >
   </iframe>
   <script>
-    setTimeout(function() { document.getElementById('loader').classList.add('hidden'); }, 12000);
+    setTimeout(function() { document.getElementById('loader').classList.add('hidden'); }, 20000);   // safety: never keep the loader forever
 
     // Keeps the login session across F5 (the Apps Script iframe cannot, its origin changes on each load)
     (function () {
@@ -72,6 +72,8 @@
             }, e.origin);
           } else if (d.sdType === 'save' && KEYS.indexOf(d.key) > -1 && typeof d.value === 'string') {
             sessionStorage.setItem(d.key, d.value);
+          } else if (d.sdType === 'ready') {
+            document.getElementById('loader').classList.add('hidden');
           } else if (d.sdType === 'clear') {
             KEYS.forEach(function (k) { sessionStorage.removeItem(k); });
           }
