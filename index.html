@@ -56,8 +56,7 @@
   <script>
     setTimeout(function() { document.getElementById('loader').classList.add('hidden'); }, 12000);
 
-    // Taga-ingat ng session at huling page para hindi mawala kapag nag-refresh.
-    // Nakikipag-usap sa app sa loob ng iframe gamit ang postMessage.
+    
     (function () {
       var KEYS = ['sd_session', 'sd_page'];
       var ALLOWED = /^https:\/\/([a-z0-9-]+\.)*(googleusercontent\.com|google\.com)$/;
